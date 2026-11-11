@@ -1,0 +1,21 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=LeetCode Sheet
+GenericName=LeetCode Company-Wise DSA Sheet
+Comment=Launch local LeetCode Company-Wise DSA Website and open in browser
+Exec=/home/vaibhav/Desktop/leetcode-company-wise-problems-main/launch.sh
+Icon=/home/vaibhav/Desktop/leetcode-company-wise-problems-main/assets/app-icon.svg
+Terminal=false
+Categories=Development;Education;
+StartupNotify=true
+StartupWMClass=leetcode-sheet
+Actions=OpenInBrowser;RestartServer;
+
+[Desktop Action OpenInBrowser]
+Name=Open in Browser
+Exec=xdg-open http://localhost:3008
+
+[Desktop Action RestartServer]
+Name=Restart Web Server
+Exec=/bin/bash -c "pkill -f '[s]erve.py --port 3008'; pkill -f '[h]ttp.server 3008'; sleep 1; /home/vaibhav/Desktop/leetcode-company-wise-problems-main/launch.sh"

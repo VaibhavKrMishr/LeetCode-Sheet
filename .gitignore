@@ -1,0 +1,9 @@
+.DS_Store
+progress.db
+progress.db-wal
+progress.db-shm
+progress.db-journal
+progress.json
+progress.json.migrated
+server.log
+__pycache__/

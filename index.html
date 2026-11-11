@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LeetCode Sheet — Company-Wise DSA Tracker &amp; Roadmap</title>
+  <meta name="description" content="Standalone static DSA interview prep platform covering 470 companies, 3,396 LeetCode problems, 5 recency timeframes, interactive roadmap, and offline progress tracking.">
+  <link rel="icon" type="image/svg+xml" href="assets/app-icon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('dsa_theme');
+        document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+      } catch (e) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    })();
+  </script>
+</head>
+<body>
+  <!-- Sticky Top Navigation -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="header-left">
+        <a href="#/" class="brand-link" aria-label="LeetCode Sheet Home">
+          <span class="brand-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+          </span>
+          <span class="brand-title">LeetCode Sheet</span>
+        </a>
+
+        <nav class="primary-nav" id="primaryNav" aria-label="Primary Navigation">
+          <a href="#/" class="nav-link" data-route="home">Home</a>
+          <a href="#/sheet" class="nav-link" data-route="sheet">Sheet</a>
+          <a href="#/companies" class="nav-link" data-route="companies">Companies</a>
+          <a href="#/roadmap" class="nav-link" data-route="roadmap">Roadmap</a>
+          <a href="#/analytics" class="nav-link" data-route="analytics">Analytics</a>
+          <a href="#/about" class="nav-link" data-route="about">About</a>
+        </nav>
+      </div>
+
+      <div class="header-actions">
+        <button id="btnCmdSearch" class="cmd-trigger" title="Quick jump to any company, topic, or problem (Ctrl/Cmd + K)" aria-label="Quick Search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <span class="cmd-label">Quick Jump...</span>
+          <kbd class="kbd-chip">Ctrl K</kbd>
+        </button>
+
+        <a href="#/analytics" class="header-progress-pill" id="headerProgressPill" title="View detailed progress analytics">
+          <span class="progress-dot"></span>
+          <span id="headerSolvedLabel" class="tabular-nums">0 / 3,396</span>
+        </a>
+
+        <div class="dropdown-wrapper">
+          <button id="btnSettings" class="btn-icon" title="Progress Data (Export / Import / Reset)" aria-label="Progress Settings">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+          </button>
+          <div id="settingsMenu" class="dropdown-menu hidden">
+            <div id="storageStatusBadge" class="storage-status-badge">
+              <span class="ssb-dot"></span>
+              <span id="storageStatusText">Checking storage...</span>
+            </div>
+            <hr class="dropdown-divider">
+            <button id="btnExportData" class="dropdown-item">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Export Progress (JSON)
+            </button>
+            <label class="dropdown-item" style="cursor: pointer;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              Import Progress (JSON)
+              <input type="file" id="inputImportData" accept=".json" style="display: none;">
+            </label>
+            <hr class="dropdown-divider">
+            <button id="btnResetData" class="dropdown-item danger">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+              Reset All Progress
+            </button>
+          </div>
+        </div>
+
+        <button id="btnThemeToggle" class="btn-icon" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <button id="btnMobileMenu" class="btn-icon mobile-only" title="Menu" aria-label="Toggle Navigation Menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Nav Drawer -->
+    <div id="mobileNavDrawer" class="mobile-nav-drawer hidden">
+      <a href="#/" class="mobile-nav-link" data-route="home">Home</a>
+      <a href="#/sheet" class="mobile-nav-link" data-route="sheet">DSA Sheet</a>
+      <a href="#/companies" class="mobile-nav-link" data-route="companies">Companies (470)</a>
+      <a href="#/roadmap" class="mobile-nav-link" data-route="roadmap">Visual Roadmap</a>
+      <a href="#/analytics" class="mobile-nav-link" data-route="analytics">Analytics</a>
+      <a href="#/about" class="mobile-nav-link" data-route="about">About &amp; Deploy</a>
+    </div>
+  </header>
+
+  <!-- Main Viewport -->
+  <main id="appRoot" class="app-main">
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading company-wise dataset...</p>
+    </div>
+  </main>
+
+  <!-- Command Palette Modal (Ctrl/Cmd + K) -->
+  <div id="cmdModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-label="Quick Jump Search">
+    <div class="modal-dialog cmd-dialog">
+      <div class="cmd-search-bar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="cmdSearchInput" class="cmd-input" placeholder="Jump to company (e.g. Google), pattern (Trees), or problem (Two Sum)..." autocomplete="off" spellcheck="false">
+        <button id="btnCloseCmdModal" class="btn-close-sm" aria-label="Close">Esc</button>
+      </div>
+      <div id="cmdResults" class="cmd-results"></div>
+    </div>
+  </div>
+
+  <!-- Problem Notes Modal -->
+  <div id="notesModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="notesModalTitle">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-badge-row" id="notesModalMeta"></div>
+          <h3 id="notesModalTitle" class="modal-title">Problem Notes</h3>
+          <div id="notesModalCompanies" class="modal-companies-row"></div>
+        </div>
+        <button id="btnCloseNotesModal" class="btn-close" aria-label="Close modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="notes-label-row">
+          <label for="problemNotesTextarea" class="input-label">Approach, Edge Cases &amp; Complexity</label>
+          <div class="snippet-chips">
+            <button type="button" class="snippet-chip" data-snippet="Time: O(N) | Space: O(N)">O(N)</button>
+            <button type="button" class="snippet-chip" data-snippet="Time: O(N log N) | Space: O(1)">O(N log N)</button>
+            <button type="button" class="snippet-chip" data-snippet="Key Edge Case: ">Edge Case</button>
+          </div>
+        </div>
+        <textarea id="problemNotesTextarea" class="notes-textarea" placeholder="e.g. Store complement indices in a hash map. Time O(N), Space O(N). Watch out for duplicate values..."></textarea>
+      </div>
+      <div class="modal-footer">
+        <button id="btnDeleteNote" class="btn-danger-outline">Delete Note</button>
+        <div class="modal-footer-right">
+          <a id="notesModalLcLink" href="https://leetcode.com" target="_blank" rel="noopener noreferrer" class="btn-secondary">Open on LeetCode ↗</a>
+          <button id="btnCancelNote" class="btn-secondary">Cancel</button>
+          <button id="btnSaveNote" class="btn-primary">Save Note</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast hidden" role="status" aria-live="polite"></div>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="footer-brand">LeetCode Sheet</span>
+        <span class="footer-dot">•</span>
+        <span id="footerStatsText">470 Companies &amp; 3,396 Problems</span>
+        <span class="footer-dot">•</span>
+        <span>100% Client-Side &amp; Static</span>
+      </div>
+      <div class="footer-links">
+        <a href="#/">Home</a>
+        <a href="#/sheet">Sheet</a>
+        <a href="#/companies">Companies</a>
+        <a href="#/roadmap">Roadmap</a>
+        <a href="#/analytics">Analytics</a>
+        <a href="#/about">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Dataset & Application Scripts (classic defer so file:// and static hosts both work cleanly) -->
+  <script defer src="assets/dsa-data.js"></script>
+  <script defer src="js/store.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer src="js/components.js"></script>
+  <script defer src="js/views/home.js"></script>
+  <script defer src="js/views/sheet.js"></script>
+  <script defer src="js/views/companies.js"></script>
+  <script defer src="js/views/roadmap.js"></script>
+  <script defer src="js/views/analytics.js"></script>
+  <script defer src="js/views/about.js"></script>
+  <script defer src="js/main.js"></script>
+</body>
+</html>
+

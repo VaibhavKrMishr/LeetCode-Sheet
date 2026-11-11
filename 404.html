@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found · LeetCode Sheet</title>
+  <link rel="icon" type="image/svg+xml" href="assets/app-icon.svg">
+  <link rel="stylesheet" href="styles/main.css">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('dsa_theme');
+        document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <main class="app-main" style="display:flex;align-items:center;justify-content:center;">
+    <div class="empty-state" style="max-width:480px;width:100%;">
+      <div class="tabular-nums" style="font-size:3.5rem;font-weight:800;color:var(--accent);line-height:1;margin-bottom:0.75rem;">404</div>
+      <h1 style="font-size:1.35rem;font-weight:700;margin-bottom:0.5rem;">Page Not Found</h1>
+      <p style="color:var(--text-secondary);margin-bottom:1.5rem;">This route doesn't exist in the static archive. Return to the main sheet or browse all 470 companies.</p>
+      <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;">
+        <a href="./index.html#/" class="btn-primary">Go to Home</a>
+        <a href="./index.html#/companies" class="btn-secondary">Browse Companies</a>
+      </div>
+    </div>
+  </main>
+</body>
+</html>
+
